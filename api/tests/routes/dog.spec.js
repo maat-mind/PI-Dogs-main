@@ -7,6 +7,7 @@ const { Dog, conn } = require('../../src/db.js')
 const agent = session(app)
 
 const dog = {
+  id: '11c8a052-824c-4f34-b5d1-af0f3a21a29e',
   name: 'Pug',
   height: '1.2 1.5',
   weight: '12 15',
@@ -23,11 +24,14 @@ describe('Dogs routes', () => {
   describe('GET /dogs', () => {
     it('should get 200', () => agent.get('/dogs').expect(200))
     it('get all dogs', () =>
-      agent.get('/dogs').expect({
-        name: 'Pug',
-        height: '1.2 1.5',
-        weight: '12 15',
-        life_span: '8 12',
-      }))
+      agent.get('/dogs').expect([
+        {
+          id: '11c8a052-824c-4f34-b5d1-af0f3a21a29e',
+          name: 'Pug',
+          height: '1.2 1.5',
+          weight: '12 15',
+          life_span: '8 12',
+        },
+      ]))
   })
 })

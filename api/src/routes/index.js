@@ -12,12 +12,8 @@ const router = Router()
 }) */
 
 router.use('/dogs', async (req, res) => {
-  try {
-    const dogs = await getDbInfo()
-    res.sendStatus(200).json(dogs)
-  } catch (error) {
-    res.sendStatus(500).json({ error: error.message })
-  }
+  const dogs = await getDbInfo()
+  res.status(200).json(dogs)
 })
 
 // Configurar los routers
