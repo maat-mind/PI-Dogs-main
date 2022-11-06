@@ -6,7 +6,7 @@ const getApiInfo = async () => {
   const response = await axios.get(
     `https://api.thedogapi.com/v1/breeds?${API_KEY}`
   )
-  const apiDogs = response.data.map(async (d) => {
+  const apiDogs = await response.data.map(async (d) => {
     return {
       name: d.name,
       height: d.height.metric,
@@ -16,7 +16,8 @@ const getApiInfo = async () => {
     }
   })
 
-  return apiDogs
+  const dogs = await Promise.all(apiDogs)
+  return dogs
 }
 
 const getDbInfo = async () => {

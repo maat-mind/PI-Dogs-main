@@ -11,7 +11,7 @@ const router = Router()
   next()
 }) */
 
-router.use('/dogs', async (req, res) => {
+router.get('/dogs', async (req, res) => {
   const dogs = await allDogs()
   res.status(200).json(dogs)
 })
