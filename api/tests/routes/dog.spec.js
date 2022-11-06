@@ -12,6 +12,7 @@ const dog = {
   height: '1.2 1.5',
   weight: '12 15',
   life_span: '8 12',
+  temperament: 'Stubborn, Curious, Playful',
 }
 
 describe('Dogs routes', () => {
@@ -31,6 +32,7 @@ describe('Dogs routes', () => {
           height: '1.2 1.5',
           weight: '12 15',
           life_span: '8 12',
+          temperament: 'Stubborn, Curious, Playful',
         },
       ]))
   })
