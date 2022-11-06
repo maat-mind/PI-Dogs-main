@@ -1,9 +1,10 @@
 const { Router } = require('express')
 const { allDogs } = require('../controllers')
 
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
 const router = Router()
+
+// Importar todos los routers;
+const dogs = require('./dog.routes.js')
 
 // TODO: AGREGAR MIDDLEWARE ADECUADO
 /* router.use((req, res, next) => {
@@ -11,14 +12,6 @@ const router = Router()
   next()
 }) */
 
-router.get('/dogs', async (req, res) => {
-  const dogs = await allDogs()
-  res.status(200).json(dogs)
-})
-
-// router.use('/', dogs)
-
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
+router.use('/', dogs)
 
 module.exports = router

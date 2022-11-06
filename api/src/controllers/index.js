@@ -9,9 +9,12 @@ const getApiInfo = async () => {
   const apiDogs = await response.data.map(async (d) => {
     return {
       name: d.name,
-      height: d.height.metric,
-      weight: d.weight.metric,
-      life_span: d.life_span,
+      height_min: parseInt(d.height.metric),
+      height_max: parseInt(d.height.metric.slice(4)),
+      weight_min: parseInt(d.weight.metric),
+      weight_max: parseInt(d.weight.metric.slice(4)),
+      life_span_min: parseInt(d.life_span),
+      life_span_max: parseInt(d.life_span.slice(4)),
       temperament: d.temperament,
     }
   })

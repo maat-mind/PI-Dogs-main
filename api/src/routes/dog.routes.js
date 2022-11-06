@@ -1,11 +1,11 @@
 const express = require('express')
-const router = express.Router()
 const { allDogs } = require('../controllers')
 
-router.use(express.json())
+const dogs = express.Router()
+dogs.use(express.json())
 
 // Get all dogs from API and DB from controller
-router.get('/get', async (req, res) => {
+dogs.get('/dogs', async (req, res) => {
   try {
     const dogs = await allDogs()
     res.status(200).json(dogs)
@@ -13,3 +13,5 @@ router.get('/get', async (req, res) => {
     return res.status(500).json({ message: error.message })
   }
 })
+
+module.exports = dogs
