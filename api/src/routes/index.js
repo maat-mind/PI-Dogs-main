@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { getDbInfo } = require('../controllers')
+const { allDogs } = require('../controllers')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -12,9 +12,11 @@ const router = Router()
 }) */
 
 router.use('/dogs', async (req, res) => {
-  const dogs = await getDbInfo()
+  const dogs = await allDogs()
   res.status(200).json(dogs)
 })
+
+// router.use('/', dogs)
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
