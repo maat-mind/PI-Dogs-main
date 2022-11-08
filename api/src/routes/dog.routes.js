@@ -37,6 +37,7 @@ dogs.post('/dogs', async (req, res) => {
       life_span_min,
       life_span_max,
       temperament,
+      image,
     } = req.body
 
     if (
@@ -47,7 +48,8 @@ dogs.post('/dogs', async (req, res) => {
       !weight_max ||
       !life_span_min ||
       !life_span_max ||
-      !temperament
+      !temperament ||
+      !image
     ) {
       return res.status(500).json({ message: 'cannot be null' })
     }
@@ -61,14 +63,11 @@ dogs.post('/dogs', async (req, res) => {
         weight_max,
         life_span_min,
         life_span_max,
+        image,
       },
     })
 
-    /* 
-      TODO: 
-        1. Verificar endpoint o como guardar temperamentos
-        2. Subir todos los temperamentos a la base de datos
-    */
+    // TODO: traer todos los dogs y quedarse con el temperament, luego forEach
     temperament.map(async (t) => {
       const findTemp = await Temperament.findAll({
         where: { name: t },
