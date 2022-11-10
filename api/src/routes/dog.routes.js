@@ -1,5 +1,5 @@
 const express = require('express')
-const { allDogs, getTemperaments } = require('../controllers')
+const { allDogs } = require('../controllers')
 const { Dog, Temperament } = require('../db.js')
 
 const dogs = express.Router()
@@ -20,6 +20,21 @@ dogs.get('/dogs', async (req, res) => {
     }
 
     res.status(200).json(dogs)
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+})
+
+// Get a dog by id
+dogs.get('/dogs/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const dogs = await allDogs()
+    if (!id) res.status(404).json(`Couldn't find dog with id: ${id}`)
+
+    const dog = dogs.find((d) => d.id.toString() === id)
+    res.status(200).json(dog)
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }
@@ -74,6 +89,7 @@ dogs.post('/dogs', async (req, res) => {
 
       newDog.addTemperament(findTemp)
     })
+
     res.status(200).json(newDog)
   } catch (error) {
     return res.status(500).json({ message: error.message })
