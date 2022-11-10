@@ -44,26 +44,36 @@ const allDogs = async () => {
   return db.concat(api)
 }
 
-// TODO: traer todos los dogs y quedarse con el temperament, luego forEach
 const getTemperaments = async () => {
   const dogs = await allDogs()
-  let temperament = new Set()
+  const setTemperament = new Set()
 
   dogs
-    .map((d) => d.temperament)
-    .forEach((e) => {
-      e?.split(', ').forEach((t) => {
-        temperament.add(t)
+    .map((dog) => dog.temperament)
+    .forEach((group) => {
+      group?.split(', ').forEach((temp) => {
+        setTemperament.add(temp)
       })
     })
 
-  console.log(temperament)
-  console.log(temperament.size)
+  const arrTemperament = Array.from(setTemperament).sort()
 
-  return temperament
+  return arrTemperament
 }
 
-getTemperaments()
+const loadTemperaments = async () => {
+  const allTemperaments = await getTemperaments()
+
+  allTemperaments.forEach(async (t) => {
+    await Temperament.findOrCreate({
+      where: {
+        name: t,
+      },
+    })
+  })
+}
+
+loadTemperaments()
 
 module.exports = {
   allDogs,

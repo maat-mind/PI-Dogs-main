@@ -1,5 +1,5 @@
 const express = require('express')
-const { allDogs } = require('../controllers')
+const { allDogs, getTemperaments } = require('../controllers')
 const { Dog, Temperament } = require('../db.js')
 
 const dogs = express.Router()
@@ -67,14 +67,13 @@ dogs.post('/dogs', async (req, res) => {
       },
     })
 
-    // TODO: traer todos los dogs y quedarse con el temperament, luego forEach
-    temperament.map(async (t) => {
+    temperament.split(', ').map(async (t) => {
       const findTemp = await Temperament.findAll({
         where: { name: t },
       })
-      createDog.addTemperament(findTemp)
-    })
 
+      newDog.addTemperament(findTemp)
+    })
     res.status(200).json(newDog)
   } catch (error) {
     return res.status(500).json({ message: error.message })
