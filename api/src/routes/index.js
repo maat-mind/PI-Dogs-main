@@ -1,5 +1,4 @@
 const { Router } = require('express')
-const { allDogs } = require('../controllers')
 
 const router = Router()
 

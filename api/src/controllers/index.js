@@ -45,7 +45,8 @@ const allDogs = async () => {
   return db.concat(api)
 }
 
-const getTemperaments = async () => {
+// Get temperaments from allDogs to load them into the database
+(async () => {
   const dogs = await allDogs()
   const setTemperament = new Set()
 
@@ -59,11 +60,7 @@ const getTemperaments = async () => {
 
   const arrTemperament = Array.from(setTemperament).sort()
 
-  return arrTemperament
-}
-
-const loadTemperaments = async () => {
-  const allTemperaments = await getTemperaments()
+  const allTemperaments = arrTemperament
 
   allTemperaments.forEach(async (t) => {
     await Temperament.findOrCreate({
@@ -72,11 +69,8 @@ const loadTemperaments = async () => {
       },
     })
   })
-}
-
-loadTemperaments()
+})()
 
 module.exports = {
   allDogs,
-  getTemperaments,
 }

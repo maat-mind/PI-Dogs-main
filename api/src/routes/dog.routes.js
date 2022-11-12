@@ -5,6 +5,20 @@ const { Dog, Temperament } = require('../db.js')
 const dogs = express.Router()
 dogs.use(express.json())
 
+// check if post has null key || existing name
+async function checkPost(req, res, next) {
+  for (const key in req.body) {
+    if (!req.body[key])
+      return res.status(500).json({ message: `${key} cannot be null` })
+  }
+
+  const dogs = await allDogs()
+
+  return dogs.find((dog) => dog.name === req.body.name)
+    ? res.status(500).json({ message: 'name already exists' })
+    : next()
+}
+
 // Get all dogs or query dog by name from API and DB from controller
 dogs.get('/dogs', async (req, res) => {
   try {
@@ -41,7 +55,7 @@ dogs.get('/dogs/:id', async (req, res) => {
 })
 
 // Post a new dog into the app
-dogs.post('/dogs', async (req, res) => {
+dogs.post('/dogs', checkPost, async (req, res) => {
   try {
     const {
       name,
@@ -54,20 +68,6 @@ dogs.post('/dogs', async (req, res) => {
       temperament,
       image,
     } = req.body
-
-    if (
-      !name ||
-      !height_min ||
-      !height_max ||
-      !weight_min ||
-      !weight_max ||
-      !life_span_min ||
-      !life_span_max ||
-      !temperament ||
-      !image
-    ) {
-      return res.status(500).json({ message: 'cannot be null' })
-    }
 
     const [newDog, created] = await Dog.findOrCreate({
       where: {
