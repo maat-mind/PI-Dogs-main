@@ -70,21 +70,19 @@ dogs.post('/dogs', checkPost, async (req, res) => {
       user_created,
     } = req.body
 
-    const [newDog, created] = await Dog.findOrCreate({
-      where: {
-        name,
-        height_min,
-        height_max,
-        weight_min,
-        weight_max,
-        life_span_min,
-        life_span_max,
-        image,
-        user_created,
-      },
+    const newDog = await Dog.create({
+      name,
+      height_min,
+      height_max,
+      weight_min,
+      weight_max,
+      life_span_min,
+      life_span_max,
+      image,
+      user_created,
     })
 
-    temperament.split(', ').map(async (t) => {
+    temperament.map(async (t) => {
       const findTemp = await Temperament.findAll({
         where: { name: t },
       })

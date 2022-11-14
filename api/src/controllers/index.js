@@ -58,11 +58,9 @@ const allDogs = async () => {
       })
     })
 
-  const arrTemperament = Array.from(setTemperament).sort()
+  const arrTemperament = Array.from(setTemperament)
 
-  const allTemperaments = arrTemperament
-
-  allTemperaments.forEach(async (t) => {
+  arrTemperament.forEach(async (t) => {
     await Temperament.findOrCreate({
       where: {
         name: t,
