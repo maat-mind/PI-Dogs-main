@@ -4,7 +4,7 @@ const { Dog, Temperament } = require('../db.js')
 
 const getApiInfo = async () => {
   const response = await axios.get(
-    `https://api.thedogapi.com/v1/breeds?${API_KEY}`
+    `https://api.thedogapi.com/v1/breeds?limit=20`
   )
   const apiDogs = await response.data.map(async (d) => {
     return {
@@ -35,7 +35,24 @@ const getDbInfo = async () => {
     },
   })
 
-  return dbDogs
+  const result = dbDogs?.map((d) => {
+    return {
+      id: d.dataValues.id,
+      name: d.dataValues.name,
+      height_min: d.dataValues.height_min,
+      height_max: d.dataValues.height_max,
+      weight_min: d.dataValues.weight_min,
+      weight_max: d.dataValues.weight_max,
+      life_span_min: d.dataValues.life_span_min,
+      life_span_max: d.dataValues.life_span_max,
+      temperament: d.dataValues.temperaments
+        .map((t) => t.dataValues.name)
+        .join(', ')
+        .toString(),
+    }
+  })
+
+  return result
 }
 
 const allDogs = async () => {
