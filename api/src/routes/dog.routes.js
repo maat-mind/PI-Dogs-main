@@ -67,6 +67,7 @@ dogs.post('/dogs', checkPost, async (req, res) => {
       life_span_max,
       temperament,
       image,
+      user_created,
     } = req.body
 
     const [newDog, created] = await Dog.findOrCreate({
@@ -79,6 +80,7 @@ dogs.post('/dogs', checkPost, async (req, res) => {
         life_span_min,
         life_span_max,
         image,
+        user_created,
       },
     })
 

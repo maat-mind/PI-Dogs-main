@@ -40,6 +40,10 @@ module.exports = (sequelize) => {
       image: {
         type: DataTypes.STRING,
       },
+      user_created: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
     },
     { timestamps: false }
   )

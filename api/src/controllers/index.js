@@ -46,7 +46,7 @@ const allDogs = async () => {
 }
 
 // Get temperaments from allDogs to load them into the database
-(async () => {
+;(async () => {
   const dogs = await allDogs()
   const setTemperament = new Set()
 
