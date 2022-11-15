@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { getAllDogs } from '../../redux/actions'
 import Card from '../Card/Card'
+import NavBar from '../NavBar/NavBar'
+import Pagination from '../Pagination/Pagination'
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -15,10 +16,8 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Home</h1>
-      <Link to='/'>
-        <button>Landing</button>
-      </Link>
+      <NavBar />
+      <Pagination />
       <section>
         {dogs?.map((d) => {
           return (

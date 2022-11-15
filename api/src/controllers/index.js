@@ -3,6 +3,7 @@ const { API_KEY } = process.env
 const { Dog, Temperament } = require('../db.js')
 
 const getApiInfo = async () => {
+  // TODO: CAMBIAR EL LIMIT DE 20
   const response = await axios.get(
     `https://api.thedogapi.com/v1/breeds?limit=20`
   )
