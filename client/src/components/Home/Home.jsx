@@ -1,25 +1,42 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllDogs } from '../../redux/actions'
 import Card from '../Card/Card'
 import NavBar from '../NavBar/NavBar'
 import Pagination from '../Pagination/Pagination'
+import './style.scss'
+
+let PageSize = 10
 
 export default function Home() {
   const dispatch = useDispatch()
-
   const dogs = useSelector((state) => state.dogs)
 
   useEffect(() => {
     dispatch(getAllDogs())
   }, [dispatch])
 
+  // PAGINATION
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize
+    const lastPageIndex = firstPageIndex + PageSize
+    return dogs.slice(firstPageIndex, lastPageIndex)
+  }, [dogs, currentPage])
+
   return (
     <div>
       <NavBar />
-      <Pagination />
+      <Pagination
+        className='pagination-bar'
+        currentPage={currentPage}
+        totalCount={dogs.length}
+        pageSize={PageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
       <section>
-        {dogs?.map((d) => {
+        {currentTableData?.map((d) => {
           return (
             <>
               <Card
