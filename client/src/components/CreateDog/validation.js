@@ -1,6 +1,8 @@
 // number between 1 and 99
 export function isValidNum(input) {
-  const regex = /^([0-9][0-9]{0,1})$/
+  if (!input) return true
+
+  const regex = /^([1-9][0-9]{0,1})$/
   return regex.test(input)
 }
 
@@ -17,7 +19,9 @@ console.log(isValidNum('foo')) */
 
 // text only between 2 and 30 characters
 export function isValidStr(input) {
-  const regex = /^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,0-9]{0,30}$/
+  if (!input) return true
+
+  const regex = /^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,0-9]{2,30}$/
   return regex.test(input)
 }
 

@@ -8,6 +8,7 @@ export default function CreateDog() {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  // state from store
   const dogsState = useSelector((state) => state.dogs)
   const temperamentsState = useSelector((state) => state.temperaments)
 
@@ -34,41 +35,9 @@ export default function CreateDog() {
 
   const [areErrors, setAreErrors] = useState(false)
 
-  function validate(e) {
-    for (const key in error) {
-      isValidNum(e[key])
-        ? (error[key] = '')
-        : (error[key] = 'Solo números (entre 1 y 99)')
-    }
-
-    isValidStr(e.name)
-      ? (error.name = '')
-      : (error.name = 'Solo letras (2 a 30)')
-
-    const findName = dogsState.filter((p) => p.name === input.name)
-    if (!!findName.length) error.name = 'La raza ya existe'
-
-    return error
-  }
-
+  // form handlers
   function handleChange(e) {
     const { name, value } = e.target
-
-    setError(validate(input))
-
-    if (
-      error.name ||
-      error.height_min ||
-      error.height_max ||
-      error.weight_min ||
-      error.weight_max ||
-      error.life_span_min ||
-      error.life_span_max
-    ) {
-      setAreErrors(true)
-    } else {
-      setAreErrors(false)
-    }
 
     setInput({
       ...input,
@@ -96,10 +65,47 @@ export default function CreateDog() {
     }
   }
 
+  // updates to get dogs and temps
   useEffect(() => {
     dispatch(getAllDogs())
     dispatch(getTemperaments())
   }, [dispatch])
+
+  // updates to show validate regex
+  useEffect(() => {
+    function validate(e) {
+      for (const key in error) {
+        isValidNum(e[key])
+          ? (error[key] = '')
+          : (error[key] = 'Solo números (entre 1 y 99)')
+      }
+
+      isValidStr(e.name)
+        ? (error.name = '')
+        : (error.name = 'Solo letras (2 a 30)')
+
+      const findName = dogsState.filter((p) => p.name === input.name)
+      if (!!findName.length) error.name = 'La raza ya existe'
+
+      return error
+    }
+
+    setError(validate(input))
+
+    if (
+      error.name ||
+      error.height_min ||
+      error.height_max ||
+      error.weight_min ||
+      error.weight_max ||
+      error.life_span_min ||
+      error.life_span_max
+    ) {
+      setAreErrors(true)
+    } else {
+      setAreErrors(false)
+    }
+  }, [input, error, dogsState])
 
   return (
     <div>
