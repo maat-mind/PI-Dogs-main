@@ -17,6 +17,15 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         dogs: action.payload,
       }
+    case 'POST_DOG':
+      return {
+        ...state,
+      }
+    case 'GET_TEMPS':
+      return {
+        ...state,
+        temperaments: action.payload,
+      }
 
     default:
       return { ...state }

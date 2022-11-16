@@ -21,3 +21,42 @@ export const getAllDogs = () => {
     }
   }
 }
+
+export const postDog = (payload) => {
+  return async (dispatch) => {
+    try {
+      let newDog = await axios.post(`${URL}/dogs`, payload)
+      return dispatch({
+        type: 'POST_DOG',
+        payload: newDog,
+      })
+    } catch (error) {
+      return dispatch({
+        type: 'ERROR',
+        payload: {
+          message: error.message,
+        },
+      })
+    }
+  }
+}
+
+export const getTemperaments = () => {
+  return async (dispatch) => {
+    try {
+      let temperaments = axios.get(`${URL}/temperaments`)
+
+      return dispatch({
+        type: 'GET_TEMPS',
+        payload: temperaments.data,
+      })
+    } catch (error) {
+      return dispatch({
+        type: 'ERROR',
+        payload: {
+          message: error.message,
+        },
+      })
+    }
+  }
+}
