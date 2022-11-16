@@ -70,8 +70,17 @@ dogs.post('/dogs', checkPost, async (req, res) => {
       user_created,
     } = req.body
 
+    // Capitalize the First Letter of Each Word
+    let words = name.split(' ')
+
+    words = words
+      .map((word) => {
+        return word[0].toUpperCase() + word.substring(1)
+      })
+      .join(' ')
+
     const newDog = await Dog.create({
-      name,
+      name: words,
       height_min,
       height_max,
       weight_min,

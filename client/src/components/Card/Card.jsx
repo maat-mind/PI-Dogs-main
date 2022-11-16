@@ -1,5 +1,4 @@
 export default function Card({
-  id,
   name,
   temperament,
   height_max,
@@ -13,13 +12,13 @@ export default function Card({
     <div>
       <h1> {name} </h1>
       <p>
-        Altura: {height_min} - {height_max}
+        <b>Height</b>: from {height_min} to {height_max} centimeters
       </p>
       <p>
-        Peso: {weight_min} - {weight_max}
+        <b>Weight</b>: from {weight_min} to {weight_max} kilos
       </p>
       <p>
-        Vida: {life_span_min} - {life_span_max}
+        <b>Life time</b>: of {life_span_min} to {life_span_max} years
       </p>
       <p>{temperament}</p>
     </div>
