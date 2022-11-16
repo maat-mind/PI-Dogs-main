@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
-import { getTemperaments, postDog } from '../../redux/actions'
+import { getAllDogs, getTemperaments, postDog } from '../../redux/actions'
+import { isValidNum, isValidStr } from './validation'
 
 export default function CreateDog() {
   const dispatch = useDispatch()
   const history = useHistory()
 
   const errorState = useSelector((state) => state.error)
+  const dogsState = useSelector((state) => state.dogs)
   const temperamentsState = useSelector((state) => state.temperaments)
 
   const [input, setInput] = useState({
@@ -21,9 +23,35 @@ export default function CreateDog() {
     temperament: [],
   })
 
+  const [error, setError] = useState({
+    name: '',
+    height_min: '',
+    height_max: '',
+    weight_min: '',
+    weight_max: '',
+    life_span_min: '',
+    life_span_max: '',
+  })
+
+  function validate(e) {
+    for (const key in error) {
+      isValidNum(e[key])
+        ? (error[key] = '')
+        : (error[key] = 'Solo números (entre 0 y 99)')
+    }
+    isValidStr(e.name) ? (error.name = '') : (error.name = 'Solo letras')
+
+    const findName = dogsState.filter((p) => p.name === input.name)
+
+    if (!!findName.length) error.name = 'La raza ya existe'
+
+    return error
+  }
+
   function handleChange(e) {
     const { name, value } = e.target
 
+    setError(validate(input))
     setInput({
       ...input,
       [name]: value,
@@ -48,6 +76,7 @@ export default function CreateDog() {
   }
 
   useEffect(() => {
+    dispatch(getAllDogs())
     dispatch(getTemperaments())
   }, [dispatch])
 
@@ -67,6 +96,7 @@ export default function CreateDog() {
             type='text'
             onChange={(e) => handleChange(e)}
           />
+          {error.name && <p>{error.name}</p>}
         </label>
 
         <label>
@@ -76,6 +106,7 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
+          {error.height_min && <p>{error.height_min}</p>}
         </label>
 
         <label>
@@ -85,6 +116,7 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
+          {error.height_max && <p>{error.height_max}</p>}
         </label>
 
         <label>
@@ -94,6 +126,7 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
+          {error.weight_min && <p>{error.weight_min}</p>}
         </label>
 
         <label>
@@ -103,6 +136,7 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
+          {error.weight_max && <p>{error.weight_max}</p>}
         </label>
 
         <label>
@@ -112,6 +146,7 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
+          {error.life_span_min && <p>{error.life_span_min}</p>}
         </label>
 
         <label>
@@ -121,6 +156,7 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
+          {error.life_span_max && <p>{error.life_span_max}</p>}
         </label>
 
         <label>

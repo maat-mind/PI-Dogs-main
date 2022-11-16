@@ -1,31 +1,34 @@
-export function isNumber(input) {
-  return input
-
-  const regex = /\b([1-9]|[1-9][0-9]|100)\b/
+// number between 1 and 99
+export function isValidNum(input) {
+  const regex = /^([1-9][0-9]{0,1})$/
   return regex.test(input)
 }
 
-//* CHECK: TRUE TEST
-console.log(isNumber(1))
-console.log(isNumber(23))
-console.log(isNumber('23'))
-console.log(isNumber('3'))
-console.log(isNumber(50))
-console.log(isNumber(15))
-console.log(isNumber(100))
+/* //* CHECK: TRUE TEST
+console.log(isValidNum(1))
+console.log(isValidNum('3'))
+console.log(isValidNum(99))
 
 //! CHECK: FALSE TEST
-console.log(isNumber(-13))
-console.log(isNumber(1 - 0))
-console.log(isNumber(1 + 1))
-console.log(isNumber(1 * 5))
-console.log(isNumber(1 / 5))
+console.log(isValidNum(0))
+console.log(isValidNum(-13))
+console.log(isValidNum(100))
+console.log(isValidNum('foo')) */
 
-console.log(isNumber(0))
-console.log(isNumber(101))
-console.log(isNumber('foo'))
-console.log(isNumber(10 / 0))
-console.log(isNumber('t1est0'))
-console.log(isNumber(-9999999999))
-console.log(isNumber({ hola: 123 }))
-console.log(isNumber(99999999999999999))
+// text only between 2 and 30 characters
+export function isValidStr(input) {
+  const regex = /^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,0-9]{2,30}$/
+  return regex.test(input)
+}
+
+/* //* CHECK: TRUE TEST
+console.log(isValidStr('Al'))
+console.log(isValidStr('Xoloitzcuintlíñ'))
+console.log(isValidStr('Alabama Blue-Blood Bulldog'))
+
+//! CHECK: FALSE TEST
+console.log(isValidStr(0))
+console.log(isValidStr('12345464'))
+console.log(isValidStr('123Xoloitzcuintlíñ'))
+console.log(isValidStr('123Xoloitzcuintlíñ123123'))
+console.log(isValidStr('Alabama Blue-Blood Bulldogaaaaaa')) */
