@@ -4,7 +4,7 @@ import { getAllDogs } from '../../redux/actions'
 import Card from '../Card/Card'
 import NavBar from '../NavBar/NavBar'
 import Pagination from '../Pagination/Pagination'
-import './style.scss'
+import './style.css'
 
 let PageSize = 10
 
