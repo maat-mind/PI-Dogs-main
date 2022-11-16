@@ -8,7 +8,6 @@ export default function CreateDog() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const errorState = useSelector((state) => state.error)
   const dogsState = useSelector((state) => state.dogs)
   const temperamentsState = useSelector((state) => state.temperaments)
 
@@ -33,16 +32,20 @@ export default function CreateDog() {
     life_span_max: '',
   })
 
+  const [areErrors, setAreErrors] = useState(false)
+
   function validate(e) {
     for (const key in error) {
       isValidNum(e[key])
         ? (error[key] = '')
-        : (error[key] = 'Solo números (entre 0 y 99)')
+        : (error[key] = 'Solo números (entre 1 y 99)')
     }
-    isValidStr(e.name) ? (error.name = '') : (error.name = 'Solo letras')
+
+    isValidStr(e.name)
+      ? (error.name = '')
+      : (error.name = 'Solo letras (2 a 30)')
 
     const findName = dogsState.filter((p) => p.name === input.name)
-
     if (!!findName.length) error.name = 'La raza ya existe'
 
     return error
@@ -52,6 +55,21 @@ export default function CreateDog() {
     const { name, value } = e.target
 
     setError(validate(input))
+
+    if (
+      error.name ||
+      error.height_min ||
+      error.height_max ||
+      error.weight_min ||
+      error.weight_max ||
+      error.life_span_min ||
+      error.life_span_max
+    ) {
+      setAreErrors(true)
+    } else {
+      setAreErrors(false)
+    }
+
     setInput({
       ...input,
       [name]: value,
@@ -68,11 +86,14 @@ export default function CreateDog() {
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
-    dispatch(postDog(input))
-    history.push('/home')
-
-    if (errorState) return console.log(errorState)
+    if (areErrors) {
+      e.preventDefault()
+      alert('hay errores: revisa los mensajes de error')
+    } else {
+      e.preventDefault()
+      dispatch(postDog(input))
+      history.push('/home')
+    }
   }
 
   useEffect(() => {
@@ -96,7 +117,7 @@ export default function CreateDog() {
             type='text'
             onChange={(e) => handleChange(e)}
           />
-          {error.name && <p>{error.name}</p>}
+          {error.name && <p style={{ color: 'red' }}>{error.name}</p>}
         </label>
 
         <label>
@@ -106,7 +127,9 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
-          {error.height_min && <p>{error.height_min}</p>}
+          {error.height_min && (
+            <p style={{ color: 'red' }}>{error.height_min}</p>
+          )}
         </label>
 
         <label>
@@ -116,7 +139,9 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
-          {error.height_max && <p>{error.height_max}</p>}
+          {error.height_max && (
+            <p style={{ color: 'red' }}>{error.height_max}</p>
+          )}
         </label>
 
         <label>
@@ -126,7 +151,9 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
-          {error.weight_min && <p>{error.weight_min}</p>}
+          {error.weight_min && (
+            <p style={{ color: 'red' }}>{error.weight_min}</p>
+          )}
         </label>
 
         <label>
@@ -136,7 +163,9 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
-          {error.weight_max && <p>{error.weight_max}</p>}
+          {error.weight_max && (
+            <p style={{ color: 'red' }}>{error.weight_max}</p>
+          )}
         </label>
 
         <label>
@@ -146,7 +175,9 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
-          {error.life_span_min && <p>{error.life_span_min}</p>}
+          {error.life_span_min && (
+            <p style={{ color: 'red' }}>{error.life_span_min}</p>
+          )}
         </label>
 
         <label>
@@ -156,7 +187,9 @@ export default function CreateDog() {
             type='number'
             onChange={(e) => handleChange(e)}
           />
-          {error.life_span_max && <p>{error.life_span_max}</p>}
+          {error.life_span_max && (
+            <p style={{ color: 'red' }}>{error.life_span_max}</p>
+          )}
         </label>
 
         <label>
