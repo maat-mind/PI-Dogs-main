@@ -60,3 +60,10 @@ export const getTemperaments = () => {
     }
   }
 }
+
+export const orderByName = (payload) => {
+  return {
+    type: 'ORDER_BY_NAME',
+    payload,
+  }
+}

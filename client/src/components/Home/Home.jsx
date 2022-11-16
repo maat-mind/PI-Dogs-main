@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllDogs } from '../../redux/actions'
+import { Link } from 'react-router-dom'
+import { getAllDogs, orderByName } from '../../redux/actions'
 import Card from '../Card/Card'
 import NavBar from '../NavBar/NavBar'
+// import NavBar from '../NavBar/NavBar'
 import Pagination from '../Pagination/Pagination'
 import './style.css'
 
@@ -25,9 +27,16 @@ export default function Home() {
     return dogs.slice(firstPageIndex, lastPageIndex)
   }, [dogs, currentPage])
 
+  function sortByName(e) {
+    e.preventDefault()
+    dispatch(orderByName(e.target.value))
+    setCurrentPage(1)
+  }
+
   return (
     <div>
-      <NavBar />
+      <NavBar sortByName={sortByName} />
+
       <Pagination
         className='pagination-bar'
         currentPage={currentPage}
@@ -35,6 +44,7 @@ export default function Home() {
         pageSize={PageSize}
         onPageChange={(page) => setCurrentPage(page)}
       />
+
       <section>
         {currentTableData?.map((d) => {
           return (
