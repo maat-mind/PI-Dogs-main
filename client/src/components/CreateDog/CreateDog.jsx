@@ -24,6 +24,15 @@ export default function CreateDog() {
   function handleChange(e) {
     const { name, value } = e.target
 
+    if (name === 'temperament') {
+      setInput({
+        ...input,
+        temperament: value,
+      })
+
+      console.log(input.temperament)
+    }
+
     setInput({
       ...input,
       [name]: value,
@@ -38,10 +47,10 @@ export default function CreateDog() {
     if (errorState) return console.log(errorState)
   }
 
-  useEffect(() => {
+  /*   useEffect(() => {
     dispatch(getAllDogs())
     dispatch(getTemperaments())
-  }, [dispatch])
+  }, [dispatch]) */
 
   return (
     <div>
@@ -117,8 +126,12 @@ export default function CreateDog() {
 
         <label>
           Temperamento
-          <select onChange={(e) => handleChange(e)}>
-            <option>ninguno</option>
+          <select
+            name='temperament'
+            onChange={(e) => handleChange(e)}>
+            <option>Ninguno</option>
+            <option value='Active'>Active</option>
+            <option value='Bold'>Bold</option>
             {temperamentsState.map((t) => (
               <option value={t.name}>{t.name}</option>
             ))}
