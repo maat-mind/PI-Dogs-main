@@ -44,7 +44,7 @@ export const postDog = (payload) => {
 export const getTemperaments = () => {
   return async (dispatch) => {
     try {
-      let temperaments = axios.get(`${URL}/temperaments`)
+      let temperaments = await axios.get(`${URL}/temperaments`)
 
       return dispatch({
         type: 'GET_TEMPS',

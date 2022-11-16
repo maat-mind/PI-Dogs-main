@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
-import { getAllDogs, getTemperaments, postDog } from '../../redux/actions'
+import { getTemperaments, postDog } from '../../redux/actions'
 
 export default function CreateDog() {
   const dispatch = useDispatch()
@@ -24,18 +24,18 @@ export default function CreateDog() {
   function handleChange(e) {
     const { name, value } = e.target
 
-    if (name === 'temperament') {
-      setInput({
-        ...input,
-        temperament: value,
-      })
-
-      console.log(input.temperament)
-    }
-
     setInput({
       ...input,
       [name]: value,
+    })
+  }
+
+  function handleSelect(e) {
+    const { value } = e.target
+
+    setInput({
+      ...input,
+      temperament: [...input.temperament, value],
     })
   }
 
@@ -47,10 +47,9 @@ export default function CreateDog() {
     if (errorState) return console.log(errorState)
   }
 
-  /*   useEffect(() => {
-    dispatch(getAllDogs())
+  useEffect(() => {
     dispatch(getTemperaments())
-  }, [dispatch]) */
+  }, [dispatch])
 
   return (
     <div>
@@ -128,10 +127,8 @@ export default function CreateDog() {
           Temperamento
           <select
             name='temperament'
-            onChange={(e) => handleChange(e)}>
+            onChange={(e) => handleSelect(e)}>
             <option>Ninguno</option>
-            <option value='Active'>Active</option>
-            <option value='Bold'>Bold</option>
             {temperamentsState.map((t) => (
               <option value={t.name}>{t.name}</option>
             ))}
