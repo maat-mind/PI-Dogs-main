@@ -95,6 +95,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         dogs: filteredByTemp,
       }
+    case 'GET_DETAIL':
+      return {
+        ...state,
+        detail: action.payload,
+      }
     default:
       return { ...state }
   }

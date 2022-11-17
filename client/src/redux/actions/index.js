@@ -81,6 +81,26 @@ export const getByName = (name) => {
   }
 }
 
+export const getDetail = (id) => {
+  return async (dispatch) => {
+    try {
+      const detail = await axios.get(`${URL}/dogs/${id}`)
+
+      return dispatch({
+        type: 'GET_DETAIL',
+        payload: detail.data,
+      })
+    } catch (error) {
+      return dispatch({
+        type: 'ERROR',
+        payload: {
+          message: error.message,
+        },
+      })
+    }
+  }
+}
+
 export const orderByName = (payload) => {
   return {
     type: 'ORDER_BY_NAME',

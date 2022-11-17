@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css'
 import CreateDog from './components/CreateDog/CreateDog'
+import DetailDog from './components/DetailDog/DetailDog.jsx'
 import Home from './components/Home/Home.jsx'
 import LandingPage from './components/LandingPage/LandingPage.jsx'
 
@@ -23,6 +24,11 @@ function App() {
             exact
             path='/create'
             component={CreateDog}
+          />
+          <Route
+            exact
+            path='/home/:id'
+            component={DetailDog}
           />
         </Switch>
       </div>

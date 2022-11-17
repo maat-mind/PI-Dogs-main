@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom'
+
 export default function Card({
+  id,
   name,
   temperament,
   height_max,
@@ -12,11 +15,14 @@ export default function Card({
   return (
     <div>
       <h1> {name} </h1>
-      <img
-        src={image}
-        alt={name}
-        style={{ width: '250px' }}
-      />
+      <Link to={`/home/${id}`}>
+        <img
+          src={image}
+          alt={name}
+          style={{ width: '250px' }}
+        />
+      </Link>
+
       {/*       <p>
         <b>Height</b>: from {height_min || 'X'} to {height_max || 'X'} cm
       </p> */}
