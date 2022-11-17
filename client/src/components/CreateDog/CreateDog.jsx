@@ -33,7 +33,10 @@ export default function CreateDog() {
     life_span_min: '',
     life_span_max: '',
     image: '',
+    temperament: '',
   })
+
+  const [currentTemps, setCurrentTemps] = useState(temperamentsState)
 
   const [areErrors, setAreErrors] = useState(false)
 
@@ -49,6 +52,8 @@ export default function CreateDog() {
 
   function handleSelect(e) {
     const { value } = e.target
+
+    setCurrentTemps(currentTemps.filter((t) => t.name !== value))
 
     setInput({
       ...input,
@@ -67,6 +72,14 @@ export default function CreateDog() {
     }
   }
 
+  function eraseTemperaments(){
+    setCurrentTemps(temperamentsState)
+    setInput({
+      ...input, 
+      temperament: []
+    })
+  }
+
   // updates to get dogs and temps
   useEffect(() => {
     dispatch(getAllDogs())
@@ -80,20 +93,24 @@ export default function CreateDog() {
         if (key === 'image') {
           isValidUrl(e.image)
             ? (error.image = '')
-            : (error.image = 'Solo url con imágenes')
+            : (error.image = 'Only url with images')
         } else if (key === 'name') {
           isValidStr(e.name)
             ? (error.name = '')
-            : (error.name = 'Solo letras (2 a 30)')
+            : (error.name = 'Only letters (2 to 30)')
+        } else if (key === 'temperament') {
+          input.temperament.length >= 10
+            ? (error.temperament = 'No more than 10 temperaments')
+            : (error.temperament = '')
         } else {
           isValidNum(e[key])
             ? (error[key] = '')
-            : (error[key] = 'Solo números (entre 1 y 99)')
+            : (error[key] = 'Only numbers (between 1 y 99)')
         }
       }
 
       const findName = dogsState.filter((p) => p.name === input.name)
-      if (!!findName.length) error.name = 'La raza ya existe'
+      if (!!findName.length) error.name = 'The breed already exists'
 
       return error
     }
@@ -221,12 +238,27 @@ export default function CreateDog() {
           <select
             name='temperament'
             onChange={(e) => handleSelect(e)}>
-            <option>Nothing</option>
-            {temperamentsState.map((t) => (
+            {currentTemps.map((t) => (
               <option value={t.name}>{t.name}</option>
             ))}
           </select>
+          {error.temperament && (
+            <p style={{ color: 'red' }}>{error.temperament}</p>
+          )}
         </label>
+
+        {input.temperament?.map((t) => (
+          <small> {t} </small>
+        ))}
+
+        {input.temperament.length ? (
+          <button 
+          onClick={eraseTemperaments}>Erase</button>
+        ) : (
+          <p style={{ color: 'grey' }}>
+            Choose at least 1 temperament (but no more than 10)
+          </p>
+        )}
 
         <button
           type='submit'
