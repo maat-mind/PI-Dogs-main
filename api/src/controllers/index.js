@@ -3,7 +3,6 @@ const { API_KEY } = process.env
 const { Dog, Temperament } = require('../db.js')
 
 const getApiInfo = async () => {
-  // TODO: CAMBIAR EL LIMIT DE 20
   const response = await axios.get(`https://api.thedogapi.com/v1/breeds`)
   const apiDogs = await response.data.map(async (d) => {
     return {
@@ -15,6 +14,7 @@ const getApiInfo = async () => {
       weight_max: parseInt(d.weight.metric.slice(4)),
       life_span_min: parseInt(d.life_span),
       life_span_max: parseInt(d.life_span.slice(4)),
+      image: d.image.url,
       temperament: d.temperament,
     }
   })
@@ -44,6 +44,8 @@ const getDbInfo = async () => {
       weight_max: d.dataValues.weight_max,
       life_span_min: d.dataValues.life_span_min,
       life_span_max: d.dataValues.life_span_max,
+      user_created: d.dataValues.user_created,
+      image: d.dataValues.image,
       temperament: d.dataValues.temperaments
         .map((t) => t.dataValues.name)
         .join(', ')

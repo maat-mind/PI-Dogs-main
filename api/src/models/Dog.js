@@ -43,6 +43,7 @@ module.exports = (sequelize) => {
       user_created: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+        allowNull: false,
       },
     },
     { timestamps: false }

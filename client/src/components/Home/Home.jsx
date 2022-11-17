@@ -26,6 +26,11 @@ export default function Home() {
     dispatch(getAllDogs())
   }
 
+  function goTop() {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+  }
+
   // PAGINATION
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -87,6 +92,7 @@ export default function Home() {
                 key={d.id}
                 id={d.id}
                 name={d.name}
+                image={d.image}
                 temperament={d.temperament}
                 height_max={d.height_max}
                 height_min={d.height_min}
@@ -99,6 +105,7 @@ export default function Home() {
           )
         })}
       </section>
+      <button onClick={goTop}>Top</button>
     </div>
   )
 }

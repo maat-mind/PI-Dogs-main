@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { getAllDogs, getTemperaments, postDog } from '../../redux/actions'
-import { isValidNum, isValidStr } from './validation'
+import { isValidNum, isValidStr, isValidUrl } from './validation'
 
 export default function CreateDog() {
   const dispatch = useDispatch()
@@ -20,6 +20,7 @@ export default function CreateDog() {
     weight_max: 0,
     life_span_min: 0,
     life_span_max: 0,
+    image: '',
     temperament: [],
   })
 
@@ -31,6 +32,7 @@ export default function CreateDog() {
     weight_max: '',
     life_span_min: '',
     life_span_max: '',
+    image: '',
   })
 
   const [areErrors, setAreErrors] = useState(false)
@@ -75,14 +77,20 @@ export default function CreateDog() {
   useEffect(() => {
     function validate(e) {
       for (const key in error) {
-        isValidNum(e[key])
-          ? (error[key] = '')
-          : (error[key] = 'Solo números (entre 1 y 99)')
+        if (key === 'image') {
+          isValidUrl(e.image)
+            ? (error.image = '')
+            : (error.image = 'Solo url con imágenes')
+        } else if (key === 'name') {
+          isValidStr(e.name)
+            ? (error.name = '')
+            : (error.name = 'Solo letras (2 a 30)')
+        } else {
+          isValidNum(e[key])
+            ? (error[key] = '')
+            : (error[key] = 'Solo números (entre 1 y 99)')
+        }
       }
-
-      isValidStr(e.name)
-        ? (error.name = '')
-        : (error.name = 'Solo letras (2 a 30)')
 
       const findName = dogsState.filter((p) => p.name === input.name)
       if (!!findName.length) error.name = 'La raza ya existe'
@@ -112,12 +120,12 @@ export default function CreateDog() {
       <h1>Create Dog</h1>
 
       <Link to='/home'>
-        <button>Regresar</button>
+        <button>Return</button>
       </Link>
 
       <form>
         <label>
-          Nombre
+          Name
           <input
             name='name'
             type='text'
@@ -127,7 +135,7 @@ export default function CreateDog() {
         </label>
 
         <label>
-          Altura min
+          Minimum height
           <input
             name='height_min'
             type='number'
@@ -139,7 +147,7 @@ export default function CreateDog() {
         </label>
 
         <label>
-          Altura max
+          Maximum height
           <input
             name='height_max'
             type='number'
@@ -151,7 +159,7 @@ export default function CreateDog() {
         </label>
 
         <label>
-          Peso min
+          Minimum weight
           <input
             name='weight_min'
             type='number'
@@ -163,7 +171,7 @@ export default function CreateDog() {
         </label>
 
         <label>
-          Peso max
+          Maximum weight
           <input
             name='weight_max'
             type='number'
@@ -175,7 +183,7 @@ export default function CreateDog() {
         </label>
 
         <label>
-          Vida min
+          Minimum life expectancy
           <input
             name='life_span_min'
             type='number'
@@ -187,7 +195,7 @@ export default function CreateDog() {
         </label>
 
         <label>
-          Vida max
+          Maximum life expectancy
           <input
             name='life_span_max'
             type='number'
@@ -199,11 +207,21 @@ export default function CreateDog() {
         </label>
 
         <label>
-          Temperamento
+          Image
+          <input
+            name='image'
+            type='text'
+            onChange={(e) => handleChange(e)}
+          />
+          {error.image && <p style={{ color: 'red' }}>{error.image}</p>}
+        </label>
+
+        <label>
+          Temperament
           <select
             name='temperament'
             onChange={(e) => handleSelect(e)}>
-            <option>Ninguno</option>
+            <option>Nothing</option>
             {temperamentsState.map((t) => (
               <option value={t.name}>{t.name}</option>
             ))}
