@@ -13,6 +13,14 @@ function sortDescByName(a, b) {
   return a.name > b.name ? -1 : a.name < b.name ? 1 : 0
 }
 
+function sortAscByWeight(a, b) {
+  return a.weight_max > b.weight_max ? 1 : a.weight_max < b.weight_max ? -1 : 0
+}
+
+function sortDescByWeight(a, b) {
+  return a.weight_max > b.weight_max ? -1 : a.weight_max < b.weight_max ? 1 : 0
+}
+
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ERROR':
@@ -35,13 +43,30 @@ const rootReducer = (state = initialState, action) => {
         temperaments: action.payload,
       }
     case 'ORDER_BY_NAME':
-      const sortedArray =
-        action.payload === 'asc'
-          ? state.dogs.sort(sortAscByName)
-          : state.dogs.sort(sortDescByName)
+      let sortedByName
+
+      if (action.payload === 'asc') {
+        sortedByName = state.dogs.sort(sortAscByName)
+      } else if (action.payload === 'desc') {
+        state.dogs.sort(sortDescByName)
+      }
+
       return {
         ...state,
-        sortedArray,
+        sortedByName,
+      }
+    case 'ORDER_BY_WEIGHT':
+      let sortedByWeight
+
+      if (action.payload === 'asc') {
+        sortedByWeight = state.dogs.sort(sortAscByWeight)
+      } else if (action.payload === 'desc') {
+        sortedByWeight = state.dogs.sort(sortDescByWeight)
+      }
+
+      return {
+        ...state,
+        sortedByWeight,
       }
 
     default:

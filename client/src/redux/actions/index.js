@@ -67,3 +67,10 @@ export const orderByName = (payload) => {
     payload,
   }
 }
+
+export const orderByWeight = (payload) => {
+  return {
+    type: 'ORDER_BY_WEIGHT',
+    payload,
+  }
+}

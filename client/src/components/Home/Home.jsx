@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { getAllDogs, orderByName } from '../../redux/actions'
+import { getAllDogs, orderByName, orderByWeight } from '../../redux/actions'
 import Card from '../Card/Card'
 import NavBar from '../NavBar/NavBar'
-// import NavBar from '../NavBar/NavBar'
 import Pagination from '../Pagination/Pagination'
 import './style.css'
 
@@ -21,21 +19,31 @@ export default function Home() {
   // PAGINATION
   const [currentPage, setCurrentPage] = useState(1)
 
-  const currentTableData = useMemo(() => {
+  const currentDogs = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
     return dogs.slice(firstPageIndex, lastPageIndex)
   }, [dogs, currentPage])
 
+  // FILTERS & ORDER
   function sortByName(e) {
     e.preventDefault()
     dispatch(orderByName(e.target.value))
     setCurrentPage(1)
   }
 
+  function sortByWeight(e) {
+    e.preventDefault()
+    dispatch(orderByWeight(e.target.value))
+    setCurrentPage(1)
+  }
+
   return (
     <div>
-      <NavBar sortByName={sortByName} />
+      <NavBar
+        sortByName={sortByName}
+        sortByWeight={sortByWeight}
+      />
 
       <Pagination
         className='pagination-bar'
@@ -46,7 +54,7 @@ export default function Home() {
       />
 
       <section>
-        {currentTableData?.map((d) => {
+        {currentDogs?.map((d) => {
           return (
             <>
               <Card

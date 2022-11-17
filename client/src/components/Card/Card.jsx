@@ -12,13 +12,14 @@ export default function Card({
     <div>
       <h1> {name} </h1>
       <p>
-        <b>Height</b>: from {height_min} to {height_max} centimeters
+        <b>Height</b>: from {height_min || 'X'} to {height_max || 'X'} cm
       </p>
       <p>
-        <b>Weight</b>: from {weight_min} to {weight_max} kilos
+        <b>Weight</b>: from {weight_min || 'X'} to {weight_max || 'X'} kg
       </p>
       <p>
-        <b>Life time</b>: of {life_span_min} to {life_span_max} years
+        <b>Life time</b>: of {life_span_min || 'X'} to {life_span_max || 'X'}{' '}
+        yrs
       </p>
       <p>{temperament}</p>
     </div>
