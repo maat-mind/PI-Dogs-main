@@ -73,7 +73,28 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         dogs: action.payload,
       }
+    case 'FILTER_BY_ORIGIN':
+      let created
 
+      if (action.payload === 'db') {
+        created = state.dogs.filter((e) => e.user_created)
+      } else if (action.payload === 'api') {
+        created = state.dogs.filter((e) => !e.user_created)
+      }
+
+      return {
+        ...state,
+        dogs: created,
+      }
+    case 'FILTER_BY_TEMPERAMENT':
+      const filteredByTemp = state.dogs.filter((e) =>
+        e.temperament?.includes(action.payload)
+      )
+
+      return {
+        ...state,
+        dogs: filteredByTemp,
+      }
     default:
       return { ...state }
   }

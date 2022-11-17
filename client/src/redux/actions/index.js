@@ -61,20 +61,6 @@ export const getTemperaments = () => {
   }
 }
 
-export const orderByName = (payload) => {
-  return {
-    type: 'ORDER_BY_NAME',
-    payload,
-  }
-}
-
-export const orderByWeight = (payload) => {
-  return {
-    type: 'ORDER_BY_WEIGHT',
-    payload,
-  }
-}
-
 export const getByName = (name) => {
   return async (dispatch) => {
     try {
@@ -92,5 +78,33 @@ export const getByName = (name) => {
         },
       })
     }
+  }
+}
+
+export const orderByName = (payload) => {
+  return {
+    type: 'ORDER_BY_NAME',
+    payload,
+  }
+}
+
+export const orderByWeight = (payload) => {
+  return {
+    type: 'ORDER_BY_WEIGHT',
+    payload,
+  }
+}
+
+export const filterByOrigin = (payload) => {
+  return {
+    type: 'FILTER_BY_ORIGIN',
+    payload,
+  }
+}
+
+export const filterByTemperament = (payload) => {
+  return {
+    type: 'FILTER_BY_TEMPERAMENT',
+    payload,
   }
 }

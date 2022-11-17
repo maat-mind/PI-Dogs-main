@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  filterByOrigin,
+  filterByTemperament,
   getAllDogs,
   getByName,
+  getTemperaments,
   orderByName,
   orderByWeight,
 } from '../../redux/actions'
@@ -16,14 +19,17 @@ let PageSize = 10
 export default function Home() {
   const dispatch = useDispatch()
   const dogs = useSelector((state) => state.dogs)
+  const temperaments = useSelector((state) => state.temperaments)
 
   useEffect(() => {
     dispatch(getAllDogs())
+    dispatch(getTemperaments())
   }, [dispatch])
 
   function handleRecharge(e) {
     e.preventDefault()
     dispatch(getAllDogs())
+    setCurrentPage(1)
   }
 
   function goTop() {
@@ -53,6 +59,18 @@ export default function Home() {
     setCurrentPage(1)
   }
 
+  function filterByCreated(e) {
+    e.preventDefault()
+    dispatch(filterByOrigin(e.target.value))
+    setCurrentPage(1)
+  }
+
+  function filterByTemp(e) {
+    e.preventDefault()
+    dispatch(filterByTemperament(e.target.value))
+    setCurrentPage(1)
+  }
+
   const [name, setName] = useState('')
 
   function handleSearchBarChange(e) {
@@ -74,6 +92,9 @@ export default function Home() {
         handleSearchBarChange={handleSearchBarChange}
         handleSearchBarSubmit={handleSearchBarSubmit}
         handleRecharge={handleRecharge}
+        filterByCreated={filterByCreated}
+        filterByTemp={filterByTemp}
+        allTemperaments={temperaments}
       />
 
       <Pagination

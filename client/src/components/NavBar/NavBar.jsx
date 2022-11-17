@@ -7,6 +7,9 @@ export default function NavBar({
   handleSearchBarChange,
   handleSearchBarSubmit,
   handleRecharge,
+  filterByCreated,
+  filterByTemp,
+  allTemperaments,
 }) {
   return (
     <nav>
@@ -62,6 +65,28 @@ export default function NavBar({
           <option>Nothing</option>
           <option value='asc'>Ascending</option>
           <option value='desc'>Descending</option>
+        </select>
+      </div>
+      <div>
+        <p>Filter by Origin</p>
+        <select
+          id='filterByOrigin'
+          onChange={(e) => filterByCreated(e)}>
+          <option>Nothing</option>
+          <option value='api'>Real breeds</option>
+          <option value='db'>Created by User</option>
+        </select>
+      </div>
+      <div>
+        <p>Filter by Temperament</p>
+        <select
+          id='filterByTemp'
+          onChange={(e) => filterByTemp(e)}>
+          <option>Nothing</option>
+          {allTemperaments?.map((t) => (
+            <option value={t.name}>{t.name}</option>
+          ))}
+          )
         </select>
       </div>
     </nav>
