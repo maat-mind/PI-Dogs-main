@@ -74,3 +74,23 @@ export const orderByWeight = (payload) => {
     payload,
   }
 }
+
+export const getByName = (name) => {
+  return async (dispatch) => {
+    try {
+      let dog = await axios.get(`${URL}/dogs?name=${name}`)
+
+      return dispatch({
+        type: 'GET_BY_NAME',
+        payload: dog.data,
+      })
+    } catch (error) {
+      return dispatch({
+        type: 'ERROR',
+        payload: {
+          message: error.message,
+        },
+      })
+    }
+  }
+}

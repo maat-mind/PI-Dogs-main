@@ -68,6 +68,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         sortedByWeight,
       }
+    case 'GET_BY_NAME':
+      return {
+        ...state,
+        dogs: action.payload,
+      }
 
     default:
       return { ...state }

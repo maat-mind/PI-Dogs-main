@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllDogs, orderByName, orderByWeight } from '../../redux/actions'
+import {
+  getAllDogs,
+  getByName,
+  orderByName,
+  orderByWeight,
+} from '../../redux/actions'
 import Card from '../Card/Card'
 import NavBar from '../NavBar/NavBar'
 import Pagination from '../Pagination/Pagination'
@@ -15,6 +20,11 @@ export default function Home() {
   useEffect(() => {
     dispatch(getAllDogs())
   }, [dispatch])
+
+  function handleRecharge(e) {
+    e.preventDefault()
+    dispatch(getAllDogs())
+  }
 
   // PAGINATION
   const [currentPage, setCurrentPage] = useState(1)
@@ -38,11 +48,27 @@ export default function Home() {
     setCurrentPage(1)
   }
 
+  const [name, setName] = useState('')
+
+  function handleSearchBarChange(e) {
+    e.preventDefault()
+    setName(e.target.value)
+  }
+
+  function handleSearchBarSubmit(e) {
+    e.preventDefault()
+    dispatch(getByName(name))
+    setCurrentPage(1)
+  }
+
   return (
     <div>
       <NavBar
         sortByName={sortByName}
         sortByWeight={sortByWeight}
+        handleSearchBarChange={handleSearchBarChange}
+        handleSearchBarSubmit={handleSearchBarSubmit}
+        handleRecharge={handleRecharge}
       />
 
       <Pagination

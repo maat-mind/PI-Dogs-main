@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function NavBar({ sortByName, sortByWeight }) {
+export default function NavBar({
+  sortByName,
+  sortByWeight,
+  handleSearchBarChange,
+  handleSearchBarSubmit,
+  handleRecharge,
+}) {
   return (
     <nav>
       <div>
@@ -10,15 +16,32 @@ export default function NavBar({ sortByName, sortByWeight }) {
         </Link>
       </div>
       <div>
+        <button
+          onClick={(e) => {
+            handleRecharge(e)
+          }}>
+          Recharge
+        </button>
+      </div>
+      <div>
         <Link to='/create'>
           <button>Create</button>
         </Link>
       </div>
       <div>
-        <button>Search</button>
+        <button
+          type='submit'
+          onClick={(e) => {
+            handleSearchBarSubmit(e)
+          }}>
+          Go
+        </button>
         <input
           type='text'
-          placeholder='Search...'
+          placeholder='Search by Dog Name...'
+          onChange={(e) => {
+            handleSearchBarChange(e)
+          }}
         />
       </div>
       <div>
