@@ -39,36 +39,95 @@ export default function Home() {
 
   // PAGINATION
   const [currentPage, setCurrentPage] = useState(1)
+  const [activeFilter, setActiveFilter] = useState({
+    sortByName: false,
+    sortByWeight: false,
+    filterByCreated: false,
+    filterByTemp: false,
+  })
+
+  console.log(activeFilter)
 
   const currentDogs = useMemo(() => {
+    setActiveFilter(activeFilter)
+
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
+
     return dogs.slice(firstPageIndex, lastPageIndex)
-  }, [dogs, currentPage])
+  }, [dogs, activeFilter, currentPage])
 
   // FILTERS & ORDER
   function sortByName(e) {
+    const { value } = e.target
+
     e.preventDefault()
-    dispatch(orderByName(e.target.value))
+    dispatch(orderByName(value))
     setCurrentPage(1)
+
+    return value === 'none'
+      ? setActiveFilter({
+          ...activeFilter,
+          sortByName: false,
+        })
+      : setActiveFilter({
+          ...activeFilter,
+          sortByName: true,
+        })
   }
 
   function sortByWeight(e) {
+    const { value } = e.target
+
     e.preventDefault()
-    dispatch(orderByWeight(e.target.value))
+    dispatch(orderByWeight(value))
     setCurrentPage(1)
+
+    return value === 'none'
+      ? setActiveFilter({
+          ...activeFilter,
+          sortByWeight: false,
+        })
+      : setActiveFilter({
+          ...activeFilter,
+          sortByWeight: true,
+        })
   }
 
   function filterByCreated(e) {
+    const { value } = e.target
+
     e.preventDefault()
-    dispatch(filterByOrigin(e.target.value))
+    dispatch(filterByOrigin(value))
     setCurrentPage(1)
+
+    return value === 'none'
+      ? setActiveFilter({
+          ...activeFilter,
+          filterByCreated: false,
+        })
+      : setActiveFilter({
+          ...activeFilter,
+          filterByCreated: true,
+        })
   }
 
   function filterByTemp(e) {
+    const { value } = e.target
+
     e.preventDefault()
-    dispatch(filterByTemperament(e.target.value))
+    dispatch(filterByTemperament(value))
     setCurrentPage(1)
+
+    return value === 'none'
+      ? setActiveFilter({
+          ...activeFilter,
+          filterByTemp: false,
+        })
+      : setActiveFilter({
+          ...activeFilter,
+          filterByTemp: true,
+        })
   }
 
   const [name, setName] = useState('')

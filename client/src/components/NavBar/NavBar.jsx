@@ -52,7 +52,7 @@ export default function NavBar({
         <select
           id='orderByName'
           onChange={(e) => sortByName(e)}>
-          <option>Nothing</option>
+          <option value='none'>Nothing</option>
           <option value='asc'>Ascending</option>
           <option value='desc'>Descending</option>
         </select>
@@ -62,7 +62,7 @@ export default function NavBar({
         <select
           id='orderByWeight'
           onChange={(e) => sortByWeight(e)}>
-          <option>Nothing</option>
+          <option value='none'>Nothing</option>
           <option value='asc'>Ascending</option>
           <option value='desc'>Descending</option>
         </select>
@@ -72,7 +72,7 @@ export default function NavBar({
         <select
           id='filterByOrigin'
           onChange={(e) => filterByCreated(e)}>
-          <option>Nothing</option>
+          <option value='none'>Nothing</option>
           <option value='api'>Real breeds</option>
           <option value='db'>Created by User</option>
         </select>
@@ -82,7 +82,7 @@ export default function NavBar({
         <select
           id='filterByTemp'
           onChange={(e) => filterByTemp(e)}>
-          <option>Nothing</option>
+          <option value='none'>Nothing</option>
           {allTemperaments?.map((t) => (
             <option value={t.name}>{t.name}</option>
           ))}
