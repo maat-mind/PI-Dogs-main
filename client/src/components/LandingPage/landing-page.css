@@ -1,0 +1,74 @@
+h1,
+p,
+option,
+select,
+label,
+button,
+li,
+a {
+  font-family: RobotoMono-Medium;
+}
+
+.landing {
+  display: flex;
+
+  height: 90vh;
+}
+
+.landing-section {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  width: 60%;
+
+  background-color: #e2d8c9;
+}
+
+.landing-aside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 40%;
+
+  background-color: #6b432c;
+}
+
+.landing-title {
+  padding: 40px;
+  margin-top: -30px;
+
+  font-size: 4.8rem;
+}
+
+.landing-button {
+  width: 300px;
+  height: 40px;
+}
+
+.landing-image {
+  width: auto;
+  height: 100%;
+}
+
+.landing-github:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.landing-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 10vh;
+
+  color: #f8f6f3;
+  background-color: #211e1d;
+
+  font-size: 1.4rem;
+}
