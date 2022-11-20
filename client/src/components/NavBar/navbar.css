@@ -1,0 +1,61 @@
+.navbar-main-nav {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 10px;
+
+  background-color: #1e2640;
+}
+
+.navbar-util-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 20%;
+}
+
+.navbar-btn-util {
+  width: 100px;
+  height: 40px;
+}
+
+.navbar-search-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 60%;
+}
+
+.navbar-btn-search {
+  width: 50px;
+  height: 50px;
+
+  font-size: 2rem;
+}
+
+.navbar-input-search {
+  width: 380px;
+  height: 50px;
+
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.navbar-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: space-around;
+
+  width: 20%;
+  height: auto;
+
+  color: white;
+}
+
+.input-filter {
+  width: 150px;
+}

@@ -1,0 +1,13 @@
+.card-main-body {
+  width: 25%;
+  padding: 20px;
+
+  text-align: center;
+}
+
+.card-image {
+  width: 250px;
+  height: 250px;
+
+  object-fit: contain;
+}

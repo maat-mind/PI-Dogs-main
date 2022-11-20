@@ -24,8 +24,37 @@ td {
   overflow-wrap: break-word;
 }
 
+.home-main-body {
+  height: 100vh;
+
+  background-color: #f3eac0;
+}
+
 .pagination-bar {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.home-cards-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  width: 80%;
+  height: auto;
+
+  margin: 0 auto;
+
+  background-color: rgba(220, 151, 80, 0.3);
+}
+
+.home-go-top {
+  display: none;
+
+  width: 80px;
+  height: 50px;
+
+  background-color: tomato;
+  border: 1px solid black;
 }

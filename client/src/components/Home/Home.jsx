@@ -14,7 +14,7 @@ import NavBar from '../NavBar/NavBar'
 import Pagination from '../Pagination/Pagination'
 import './style.css'
 
-let PageSize = 10
+let PageSize = 8
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -45,8 +45,6 @@ export default function Home() {
     filterByCreated: false,
     filterByTemp: false,
   })
-
-  console.log(activeFilter)
 
   const currentDogs = useMemo(() => {
     setActiveFilter(activeFilter)
@@ -144,7 +142,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className='home-main-body'>
       <NavBar
         sortByName={sortByName}
         sortByWeight={sortByWeight}
@@ -164,7 +162,7 @@ export default function Home() {
         onPageChange={(page) => setCurrentPage(page)}
       />
 
-      <section>
+      <section className='home-cards-group'>
         {currentDogs?.map((d) => {
           return (
             <>
@@ -174,10 +172,6 @@ export default function Home() {
                 name={d.name}
                 image={d.image}
                 temperament={d.temperament}
-                height_max={d.height_max}
-                height_min={d.height_min}
-                life_span_max={d.life_span_max}
-                life_span_min={d.life_span_min}
                 weight_max={d.weight_max}
                 weight_min={d.weight_min}
               />
@@ -185,7 +179,11 @@ export default function Home() {
           )
         })}
       </section>
-      <button onClick={goTop}>Top</button>
+      <button
+        className='home-go-top'
+        onClick={goTop}>
+        Top
+      </button>
     </div>
   )
 }
