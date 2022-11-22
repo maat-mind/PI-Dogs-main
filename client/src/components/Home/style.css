@@ -25,9 +25,10 @@ td {
 }
 
 .home-main-body {
+  width: 100%;
   height: 100vh;
 
-  background-color: #f3eac0;
+  background: url(../../assets/img/background-dog2.jpg) center/cover;
 }
 
 .pagination-bar {
@@ -46,7 +47,7 @@ td {
 
   margin: 0 auto;
 
-  background-color: rgba(220, 151, 80, 0.3);
+  background-color: rgba(220, 194, 80, 0.85);
 }
 
 .home-go-top {

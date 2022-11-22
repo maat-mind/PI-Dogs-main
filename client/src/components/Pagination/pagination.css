@@ -2,7 +2,7 @@
   display: flex;
   list-style-type: none;
 
-  background-color: rgba(146, 44, 64, 0.85);
+  background-color: rgb(146, 44, 64);
 }
 .pagination-container .pagination-item {
   padding: 0 12px;
