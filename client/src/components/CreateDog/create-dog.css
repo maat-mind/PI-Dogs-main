@@ -1,0 +1,93 @@
+.create-main {
+  width: 100%;
+  min-height: 100vh;
+  max-height: auto;
+
+  padding: 40px;
+
+  background: url(../../assets/img/background-dog.jpg) center/cover;
+}
+
+.create-btn-return {
+  width: 100px;
+  height: 40px;
+}
+
+.create-form-main {
+  width: 40%;
+
+  margin: 0 auto;
+  padding: 40px;
+
+  background-color: rgba(187, 103, 25, 0.7);
+
+  text-align: center;
+}
+
+.create-form-main h1 {
+  font-size: 2.85rem;
+  color: rgb(22, 21, 20);
+}
+
+.create-lbl-group {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  row-gap: 16px;
+
+  max-width: 80%;
+
+  margin: 2rem auto 0 auto;
+  padding: 15px;
+}
+
+.create-lbl-group label {
+  grid-column: 1 / 2;
+  align-self: center;
+
+  font-size: 1.35rem;
+  text-align: left;
+}
+
+.create-lbl-group input {
+  grid-column: 2 / 3;
+
+  padding: 0.7em;
+  margin-bottom: 0.5rem;
+
+  background-color: rgb(255, 232, 168);
+
+  border: none;
+}
+
+.create-lbl-group select {
+  grid-column: 2 / 3;
+
+  width: 100%;
+  padding: 0.7em;
+
+  background-color: rgb(255, 232, 168);
+}
+
+.create-lbl-group input:focus {
+  outline: 3px solid gold;
+}
+
+.create-lbl-group button {
+  grid-column: 1 / 3;
+
+  width: 100%;
+  padding: 0.7em;
+
+  background-color: rgba(243, 228, 11, 0.6);
+
+  border: 2px solid black;
+  border-radius: 15px;
+}
+
+.error {
+  grid-column: 1 / 3;
+
+  font-size: 1.2rem;
+
+  color: rgb(247, 199, 199);
+}
