@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  clearError,
   filterByOrigin,
   filterByTemperament,
   getAllDogs,
@@ -19,16 +20,24 @@ let PageSize = 8
 export default function Home() {
   const dispatch = useDispatch()
   const dogs = useSelector((state) => state.dogs)
+  const error = useSelector((state) => state.error.message)
   const temperaments = useSelector((state) => state.temperaments)
 
   useEffect(() => {
+    dispatch(clearError())
     dispatch(getAllDogs())
     dispatch(getTemperaments())
+
+    return () => {
+      // componentWillUnmount
+      dispatch(clearError())
+    }
   }, [dispatch])
 
   function handleRecharge(e) {
     e.preventDefault()
     dispatch(getAllDogs())
+    dispatch(clearError())
     setCurrentPage(1)
   }
 
@@ -140,6 +149,11 @@ export default function Home() {
     dispatch(getByName(name))
     setCurrentPage(1)
   }
+
+  useEffect(() => {
+    console.log(error)
+    if (error) alert(error)
+  }, [error])
 
   return (
     <div className='home-main-body'>

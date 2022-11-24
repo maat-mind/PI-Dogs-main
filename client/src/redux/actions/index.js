@@ -101,6 +101,13 @@ export const getDetail = (id) => {
   }
 }
 
+export const clearError = (payload) => {
+  return {
+    type: 'CLEAR_ERROR',
+    payload,
+  }
+}
+
 export const orderByName = (payload) => {
   return {
     type: 'ORDER_BY_NAME',

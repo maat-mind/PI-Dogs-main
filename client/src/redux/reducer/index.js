@@ -28,6 +28,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       }
+    case 'CLEAR_ERROR':
+      return {
+        ...state,
+        error: [],
+      }
     case 'GET_DOGS':
       return {
         ...state,
