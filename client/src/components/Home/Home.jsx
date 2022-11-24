@@ -41,11 +41,6 @@ export default function Home() {
     setCurrentPage(1)
   }
 
-  function goTop() {
-    document.body.scrollTop = 0
-    document.documentElement.scrollTop = 0
-  }
-
   // PAGINATION
   const [currentPage, setCurrentPage] = useState(1)
   const [activeFilter, setActiveFilter] = useState({
@@ -193,11 +188,6 @@ export default function Home() {
           )
         })}
       </section>
-      <button
-        className='home-go-top'
-        onClick={goTop}>
-        Top
-      </button>
     </div>
   )
 }
