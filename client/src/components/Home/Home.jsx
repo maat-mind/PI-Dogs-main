@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Dog404 from '../../assets/img/dog404.jpg'
 import {
   clearError,
   filterByOrigin,
@@ -150,44 +151,69 @@ export default function Home() {
     if (error) alert(error)
   }, [error])
 
-  return (
-    <div className='home-main-body'>
-      <NavBar
-        sortByName={sortByName}
-        sortByWeight={sortByWeight}
-        handleSearchBarChange={handleSearchBarChange}
-        handleSearchBarSubmit={handleSearchBarSubmit}
-        handleRecharge={handleRecharge}
-        filterByCreated={filterByCreated}
-        filterByTemp={filterByTemp}
-        allTemperaments={temperaments}
-      />
+  console.log(dogs)
 
-      <Pagination
-        className='pagination-bar'
-        currentPage={currentPage}
-        totalCount={dogs.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+  if (!dogs.length) {
+    return (
+      <div className='home-main-body'>
+        <NavBar
+          sortByName={sortByName}
+          sortByWeight={sortByWeight}
+          handleSearchBarChange={handleSearchBarChange}
+          handleSearchBarSubmit={handleSearchBarSubmit}
+          handleRecharge={handleRecharge}
+          filterByCreated={filterByCreated}
+          filterByTemp={filterByTemp}
+          allTemperaments={temperaments}
+        />
 
-      <section className='home-cards-group'>
-        {currentDogs?.map((d) => {
-          return (
-            <>
-              <Card
-                key={d.id}
-                id={d.id}
-                name={d.name}
-                image={d.image}
-                temperament={d.temperament}
-                weight_max={d.weight_max}
-                weight_min={d.weight_min}
-              />
-            </>
-          )
-        })}
-      </section>
-    </div>
-  )
+        <img
+          className='home-dog-lost'
+          src={Dog404}
+          alt='dog not found'
+        />
+      </div>
+    )
+  } else {
+    return (
+      <div className='home-main-body'>
+        <NavBar
+          sortByName={sortByName}
+          sortByWeight={sortByWeight}
+          handleSearchBarChange={handleSearchBarChange}
+          handleSearchBarSubmit={handleSearchBarSubmit}
+          handleRecharge={handleRecharge}
+          filterByCreated={filterByCreated}
+          filterByTemp={filterByTemp}
+          allTemperaments={temperaments}
+        />
+
+        <Pagination
+          className='pagination-bar'
+          currentPage={currentPage}
+          totalCount={dogs.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+
+        <section className='home-cards-group'>
+          {currentDogs?.map((d) => {
+            return (
+              <>
+                <Card
+                  key={d.id}
+                  id={d.id}
+                  name={d.name}
+                  image={d.image}
+                  temperament={d.temperament}
+                  weight_max={d.weight_max}
+                  weight_min={d.weight_min}
+                />
+              </>
+            )
+          })}
+        </section>
+      </div>
+    )
+  }
 }
